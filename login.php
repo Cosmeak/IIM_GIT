@@ -1,11 +1,11 @@
-<?php session_start();
+<?php 
+session_start();
 
 /******************************** 
 	 DATABASE & FUNCTIONS 
 ********************************/
 require('config/config.php');
 require('model/functions.fn.php');
-
 
 /********************************
 			PROCESS
@@ -14,12 +14,21 @@ require('model/functions.fn.php');
 if(isset($_POST['email']) && isset($_POST['password'])){
 	if(!empty($_POST['email']) && !empty($_POST['password'])){
 
-		// TODO
+		$email = $_POST['email'];
+		$password = $_POST['password'];
 
-		// Force user connection to access dashboard
-		userConnection($db, 'git@initiation.com', 'password');
+		// Appeler la méthode userConnection avec les données du formulaire
+		$result = userConnection($db, $email, $password);
 		
-		header('Location: dashboard.php');
+		// Vérifier le résultat
+		if($result){
+			// Si les identifiants sont corrects, rediriger vers dashboard.php
+			header('Location: dashboard.php');
+			exit();
+		}else{
+			// Si les identifiants sont incorrects, stocker le message d'erreur
+			$error = 'Mauvais identifiants';
+		}
 
 	}else{
 		$error = 'Champs requis !';
@@ -32,3 +41,4 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 include 'view/_header.php';
 include 'view/login.php';
 include 'view/_footer.php';
+?>
