@@ -1,5 +1,8 @@
 # IIM_A2_GIT
 
+- Guillaume FINE
+- Antoine BENDAFI-SCHULMANN
+
 # ISSUE 1
 
 Login
